@@ -82,6 +82,9 @@ Este repositório contém o código e os recursos do projeto desenvolvido durant
 4. Client Mysql - consultar os dados (Mysql Workbench, utilizado)
 5. Postman
 
+## Diagrama de Classes
+![Diagrama de Classes](https://github.com/gustavoscgomes/algafood/blob/main/image/Conteudo%20do%20treinamento%20Projeto.jpg?raw=true)
+
 ## Licença
 
 Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
