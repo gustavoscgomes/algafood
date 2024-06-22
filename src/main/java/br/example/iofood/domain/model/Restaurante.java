@@ -1,13 +1,18 @@
 package br.example.iofood.domain.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.logging.Log;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 
 @Entity
+@Getter
+@Setter
 public class Restaurante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,37 +24,17 @@ public class Restaurante {
     @ManyToOne
     private Cozinha cozinha;
 
-    public Long getId() {
-        return id;
-    }
+    private Boolean ativo;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public BigDecimal getTaxaFrete() {
-        return taxaFrete;
-    }
-
-    public void setTaxaFrete(BigDecimal taxaFrete) {
-        this.taxaFrete = taxaFrete;
-    }
-
-    public Cozinha getCozinha() {
-        return cozinha;
-    }
-
-    public void setCozinha(Cozinha cozinha) {
-        this.cozinha = cozinha;
-    }
+    private Boolean aberto;
+    @Column(name = "data_cadastro")
+    private LocalDate dataCadastro;
+    @Column(name = "data_atualizacao")
+    private LocalDate dataAtualizacao = LocalDate.now();
+    @Embedded
+    private Endereco endereco;
+    @OneToMany
+    private FormaPagamento formasPagamento;
 
     @Override
     public boolean equals(Object o) {
