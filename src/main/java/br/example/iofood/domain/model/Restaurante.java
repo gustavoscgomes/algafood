@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -34,7 +35,7 @@ public class Restaurante {
     @Embedded
     private Endereco endereco;
     @OneToMany
-    private FormaPagamento formasPagamento;
+    private List<FormaPagamento> formasPagamento;
 
     @Override
     public boolean equals(Object o) {

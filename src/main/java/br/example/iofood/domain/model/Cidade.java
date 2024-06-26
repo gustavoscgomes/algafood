@@ -1,12 +1,9 @@
 package br.example.iofood.domain.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.util.Objects;
-
+@Entity
 public class Cidade {
 
     @Id

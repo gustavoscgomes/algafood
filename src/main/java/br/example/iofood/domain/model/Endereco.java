@@ -6,9 +6,6 @@ import java.util.Objects;
 
 @Embeddable
 public class Endereco {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String cep;
 
@@ -20,14 +17,6 @@ public class Endereco {
 
     @ManyToOne
     private Cidade cidade;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCep() {
         return cep;
@@ -67,18 +56,5 @@ public class Endereco {
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Endereco endereco = (Endereco) o;
-        return Objects.equals(id, endereco.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

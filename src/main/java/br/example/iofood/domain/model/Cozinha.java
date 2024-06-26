@@ -5,12 +5,11 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tab_cozinha")
 public class Cozinha {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nom_cozinha")
+
     private String nome;
 
     public Long getId() {
