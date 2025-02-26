@@ -18,34 +18,20 @@ import java.util.Optional;
 public class RestauranteService {
 
     @Autowired
-    private RestauranteRepository repository;
+    private RestauranteRepository restauranteRepository;
 
     @Autowired
     private CozinhaRepository cozinhaRepository;
 
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
+
         Cozinha cozinha = cozinhaRepository.findById(cozinhaId)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(
-                        String.format("Nao existe cadastro de cozinha com o codigo %d", cozinhaId)));
+                        String.format("Não existe cadastro de cozinha com código %d", cozinhaId)));
 
         restaurante.setCozinha(cozinha);
 
-        return repository.save(restaurante);
-    }
-
-    public List<Restaurante> listar() {
-        return repository.findAll();
-    }
-
-    public Restaurante buscarById(Long id) {
-
-        Optional<Restaurante> restauranteOptional = repository.findById(id);
-
-        if (restauranteOptional.isPresent()) {
-            return restauranteOptional.get();
-        } else {
-            throw new EntidadeNaoEncontradaException(String.format("Não existe cadastro de cozinha com código %d", id));
-        }
+        return restauranteRepository.save(restaurante);
     }
 }

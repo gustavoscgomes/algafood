@@ -16,27 +16,25 @@ import java.util.Optional;
 
 @Service
 public class CozinhaService {
+
     @Autowired
-    private CozinhaRepository repository;
+    private CozinhaRepository cozinhaRepository;
 
     public Cozinha salvar(Cozinha cozinha) {
-        return repository.save(cozinha);
+        return cozinhaRepository.save(cozinha);
     }
 
-    public List<Cozinha> listar() {
-        return repository.findAll();
-    }
-
-
-    public void remover(Long id) {
+    public void excluir(Long cozinhaId) {
         try {
-            repository.deleteById(id);
+            cozinhaRepository.deleteById(cozinhaId);
+
         } catch (EmptyResultDataAccessException e) {
-            throw new EntidadeNaoEncontradaException(String.format("Não existe cadastro de cozinha com código %d", id));
+            throw new EntidadeNaoEncontradaException(
+                    String.format("Não existe um cadastro de cozinha com código %d", cozinhaId));
 
         } catch (DataIntegrityViolationException e) {
-            throw new EntidadeEmUsoException(String.format("Cozinha de código %d não pode ser removido, pois está em uso", id));
-
+            throw new EntidadeEmUsoException(
+                    String.format("Cozinha de código %d não pode ser removida, pois está em uso", cozinhaId));
         }
     }
 
