@@ -1,4 +1,4 @@
-# Spring REST API Course Project
+# Curso Especialista Spring REST
 
 Este repositório contém o código e os recursos do projeto desenvolvido durante o curso "Especialista Spring REST". O curso abrange uma ampla gama de tópicos essenciais para o desenvolvimento de APIs RESTful com o ecossistema Spring. Abaixo está um resumo dos principais tópicos abordados no curso.
 
@@ -82,11 +82,7 @@ Este repositório contém o código e os recursos do projeto desenvolvido durant
 4. Client Mysql - consultar os dados (Mysql Workbench, utilizado)
 5. Postman
 
-## Diagrama de Classes
+## Diagrama do Projeto
 ![Diagrama de Classes](https://github.com/gustavoscgomes/algafood/blob/main/image/Conteudo%20do%20treinamento%20Projeto.jpg?raw=true)
-
-## Licença
-
-Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 > Status do Projeto: Em desenvolvimento :warning:
