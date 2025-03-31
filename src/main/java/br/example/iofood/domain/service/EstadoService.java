@@ -15,6 +15,7 @@ import java.util.Optional;
 @Service
 public class EstadoService {
 
+    public static final String MSG_ESTADO_NAO_ENCONTRADO = "Nao existe cadastro de estado com id %d";
     @Autowired
     private EstadoRepository repository;
 
@@ -26,12 +27,17 @@ public class EstadoService {
         try {
             repository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntidadeNaoEncontradaException(String.format("Nao existe cadastro de estado com id %d", id));
+            throw new EntidadeNaoEncontradaException(String.format(MSG_ESTADO_NAO_ENCONTRADO, id));
 
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(String.format("Estado de código %d não pode ser removido, pois está em uso", id));
 
         }
+    }
+
+    public Estado buscarOuFalhar(Long estadoId) {
+        return repository.findById(estadoId)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format(MSG_ESTADO_NAO_ENCONTRADO, estadoId)));
     }
 
 }
