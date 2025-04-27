@@ -1,5 +1,6 @@
 package br.example.iofood.domain.service;
 
+import br.example.iofood.domain.exception.CidadeNaoEncontradaException;
 import br.example.iofood.domain.exception.EntidadeEmUsoException;
 import br.example.iofood.domain.exception.EntidadeNaoEncontradaException;
 import br.example.iofood.domain.model.Cidade;
@@ -16,8 +17,6 @@ import java.util.Optional;
 
 @Service
 public class CidadeService {
-
-    public static final String MSG_CIDADE_NAO_ENCONTRADA = "Não existe um cadastro de cidade com código %d";
 
     @Autowired
     private EstadoService estadoService;
@@ -42,8 +41,7 @@ public class CidadeService {
             cidadeRepository.deleteById(cidadeId);
 
         } catch (EmptyResultDataAccessException e) {
-            throw new EntidadeNaoEncontradaException(
-                    String.format(MSG_CIDADE_NAO_ENCONTRADA, cidadeId));
+            throw new CidadeNaoEncontradaException(cidadeId);
 
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
@@ -53,6 +51,6 @@ public class CidadeService {
 
     public Cidade buscarOuFalhar(Long cidadeId) {
         return cidadeRepository.findById(cidadeId)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format(MSG_CIDADE_NAO_ENCONTRADA, cidadeId)));
+                .orElseThrow(() -> new CidadeNaoEncontradaException(cidadeId));
     }
 }

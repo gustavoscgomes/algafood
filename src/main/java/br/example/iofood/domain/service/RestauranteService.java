@@ -1,6 +1,7 @@
 package br.example.iofood.domain.service;
 
 import br.example.iofood.domain.exception.EntidadeNaoEncontradaException;
+import br.example.iofood.domain.exception.RestauranteNaoEncontradoException;
 import br.example.iofood.domain.model.Cozinha;
 import br.example.iofood.domain.model.Restaurante;
 import br.example.iofood.domain.repository.CozinhaRepository;
@@ -36,6 +37,6 @@ public class RestauranteService {
     public Restaurante buscarOuFalhar(Long restauranteId) {
         return restauranteRepository.findById(restauranteId)
                 .orElseThrow(()
-                        -> new EntidadeNaoEncontradaException(String.format("Não existe um cadastro de restaurante com código %d", restauranteId)));
+                        -> new RestauranteNaoEncontradoException(restauranteId));
     }
 }

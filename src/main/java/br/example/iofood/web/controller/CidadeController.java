@@ -2,6 +2,8 @@ package br.example.iofood.web.controller;
 
 import br.example.iofood.domain.exception.EntidadeEmUsoException;
 import br.example.iofood.domain.exception.EntidadeNaoEncontradaException;
+import br.example.iofood.domain.exception.EstadoNaoEncontradoException;
+import br.example.iofood.domain.exception.NegocioException;
 import br.example.iofood.domain.model.Cidade;
 import br.example.iofood.domain.repository.CidadeRespository;
 import br.example.iofood.domain.service.CidadeService;
@@ -37,17 +39,25 @@ public class CidadeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cidade adicionar(@RequestBody Cidade cidade) {
-        return cidadeService.salvar(cidade);
+        try {
+            return cidadeService.salvar(cidade);
+        } catch (EstadoNaoEncontradoException e) {
+        throw new NegocioException(e.getMessage(), e);
+        }
     }
 
     @PutMapping("/{cidadeId}")
     public Cidade atualizar(@PathVariable Long cidadeId,
                                        @RequestBody Cidade cidade) {
-        Cidade cidadeAtual = cidadeService.buscarOuFalhar(cidadeId);
+        try {
+            Cidade cidadeAtual = cidadeService.buscarOuFalhar(cidadeId);
 
-        BeanUtils.copyProperties(cidade, cidadeAtual, "id");
+            BeanUtils.copyProperties(cidade, cidadeAtual, "id");
 
-        return cidadeService.salvar(cidadeAtual);
+            return cidadeService.salvar(cidadeAtual);
+        } catch (EstadoNaoEncontradoException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
     }
 
     @DeleteMapping("/{cidadeId}")

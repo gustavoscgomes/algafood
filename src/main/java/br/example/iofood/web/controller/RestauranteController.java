@@ -1,6 +1,8 @@
 package br.example.iofood.web.controller;
 
+import br.example.iofood.domain.exception.CozinhaNaoEncontradaException;
 import br.example.iofood.domain.exception.EntidadeNaoEncontradaException;
+import br.example.iofood.domain.exception.NegocioException;
 import br.example.iofood.domain.model.Restaurante;
 import br.example.iofood.domain.repository.RestauranteRepository;
 import br.example.iofood.domain.service.RestauranteService;
@@ -40,19 +42,26 @@ public class RestauranteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Restaurante adicionar(@RequestBody Restaurante restaurante) {
-        return restauranteService.salvar(restaurante);
+        try {
+            return restauranteService.salvar(restaurante);
+        } catch (CozinhaNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
     }
 
     @PutMapping("/{restauranteId}")
     public Restaurante atualizar(@PathVariable Long restauranteId,
                                        @RequestBody Restaurante restaurante) {
+        try {
+            Restaurante restauranteAtual = restauranteService.buscarOuFalhar(restauranteId);
 
-        Restaurante restauranteAtual = restauranteService.buscarOuFalhar(restauranteId);
+            BeanUtils.copyProperties(restaurante, restauranteAtual,
+                    "id", "formasPagamento", "endereco", "dataCadastro");
 
-        BeanUtils.copyProperties(restaurante, restauranteAtual,
-                "id", "formasPagamento", "endereco", "dataCadastro");
-
-        return restauranteService.salvar(restauranteAtual);
+            return restauranteService.salvar(restauranteAtual);
+        } catch (CozinhaNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
     }
 
     @PatchMapping("/{restauranteId}")
